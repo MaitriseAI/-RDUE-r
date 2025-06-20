@@ -43,7 +43,7 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 ## Utilisation
 
-1.  Ouvrez votre navigateur et allez sur `http://localhost:8080`.
+1.  Ouvrez votre navigateur et allez sur `http://localhost:8081`.
 2.  Créez un compte administrateur lors de la première visite.
 3.  Dans l'interface, sélectionnez le pipeline **"RAG API Caller Pipeline"**.
 4.  Commencez à poser des questions sur votre document !
@@ -126,7 +126,7 @@ Une fois les conteneurs démarrés, suivez ces étapes pour interagir avec votre
 
 #### 1. Accès et Configuration d'Open WebUI
 
-1.  Ouvrez votre navigateur et allez sur `http://localhost:8080`.
+1.  Ouvrez votre navigateur et allez sur `http://localhost:8081`.
 2.  Lors de votre première visite, Open WebUI vous demandera de créer un compte administrateur. Créez ce compte.
 3.  Une fois connecté, vous arrivez sur l'interface de chat principale.
 
