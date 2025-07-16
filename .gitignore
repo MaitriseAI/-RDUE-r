@@ -16,3 +16,6 @@ __pycache__/
 
 # Dossier de données et de cache de Open WebUI (LA LIGNE IMPORTANTE)
 data/
+# Ignorer le dossier de travail et de données de Open WebUI
+open_webui/
+open-webui-data/
