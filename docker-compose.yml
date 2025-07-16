@@ -27,16 +27,29 @@ services:
       - "host.docker.internal:host-gateway"
     depends_on:
       - rag_server
+      #- lightrag_server
 
   # ---- NOUVEAU SERVICE ----
   rag_server:
     # On dit à Docker de construire ce service à partir du Dockerfile local
     build: ./rag_server
     container_name: rag_server
+    ports:
+      - "5001:5000" # On garde le port pour les tests Giskard
     restart: always
     environment:
       # On passe la clé API à ce conteneur pour qu'il puisse appeler OpenAI
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+
+  #---- NOTRE NOUVEAU SERVICE LIGHTRAG ----
+  #lightrag_server:
+   # build: ./lightrag_server
+   # container_name: lightrag_server
+   # ports: # <-- AJOUTEZ CES LIGNES
+     # - "5002:5000"
+   # restart: always
+   # environment:
+    #  - OPENAI_API_KEY=${OPENAI_API_KEY}
 volumes:
   data:
   pipelines:

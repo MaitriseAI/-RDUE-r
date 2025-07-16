@@ -1,7 +1,8 @@
-Flask
 langchain
-langchain-community
 langchain-openai
+langchain-community
+langchain-huggingface # Important pour le CrossEncoder
 faiss-cpu
 pypdf
-tiktoken
+sentence-transformers
+flask
