@@ -1,154 +1,181 @@
-# Projet RAG avec Open WebUI et Serveur Dédié
+# Maitrise.ai – Agent RAG Avancé
 
-Ce projet met en place une solution de Retrieval-Augmented Generation (RAG) utilisant Open WebUI comme interface utilisateur et un serveur Python dédié pour la logique RAG avec LangChain et OpenAI.
+**Maitrise.ai** est un système avancé de **Retrieval-Augmented Generation (RAG)** conçu pour interagir dynamiquement avec des documents PDF locaux. Grâce à une architecture conteneurisée robuste et à une interface intuitive via **Open WebUI**, il permet d’interroger intelligemment vos documents comme si vous dialoguiez avec un expert.
 
-## Architecture
+Ce projet se distingue par l’intégration de techniques de recherche sémantique avancées pour garantir la **pertinence**, la **précision** et la **richesse contextuelle** des réponses.
 
-Le projet utilise Docker Compose pour orchestrer 3 services :
-* `openwebui`: L'interface web pour interagir avec l'agent.
-* `pipelines`: Un service léger qui reçoit les requêtes de l'UI et les transmet au serveur RAG.
-* `rag_server`: Un serveur Flask qui contient la logique RAG, charge un document local, et communique avec l'API d'OpenAI.
+---
 
-## Prérequis
+## ✨ Fonctionnalités Clés
 
-Avant de commencer, assurez-vous d'avoir installé :
-* [Docker](https://www.docker.com/get-started)
-* [Docker Compose](https://docs.docker.com/compose/install/)
-* [Git](https://git-scm.com/downloads)
+🔍 **Retrieval multi-niveau** :
+- **Parent Document Retriever** : segmentation fine des documents tout en conservant un contexte riche pour le modèle.
+- **Cross-Encoder Re-Ranking** : re-classement des résultats pour ne retenir que les passages les plus pertinents.
+- **Multi-Query Expansion** : reformulation intelligente des questions pour ne rien laisser passer.
 
-## Installation et Lancement
+🖥️ **Interface Web Moderne** :
+- Interface via Open WebUI pour une expérience utilisateur fluide et personnalisable.
 
-1.  **Clonez le dépôt :**
-    ```bash
-    git clone [https://github.com/MaitriseAI/Test1.git](https://github.com/MaitriseAI/Test1.git)
-    cd Test1
-    ```
+⚙️ **Architecture Modulaire** :
+- Architecture conteneurisée avec Docker Compose, facilitant l’installation, la scalabilité et la maintenance.
 
-2.  **Configurez les variables d'environnement :**
-    Copiez le fichier d'exemple `.env.example` pour créer votre propre fichier de configuration `.env`.
-    ```bash
-    cp .env.example .env
-    ```
-    Ouvrez ensuite le fichier `.env` et insérez votre clé API OpenAI.
+---
 
-3.  **Ajoutez votre document :**
-    Placez le document PDF que vous souhaitez utiliser dans le dossier `rag_server/`. Assurez-vous que le nom du fichier correspond à celui spécifié dans `rag_server/app.py` (actuellement `mon_document.pdf`).
+## 🏗️ Architecture Technique
 
-4.  **Lancez l'application :**
-    Utilisez Docker Compose pour construire les images et démarrer les conteneurs.
-    ```bash
-    docker compose up --build -d
-    ```
-    Le premier lancement peut prendre plusieurs minutes, le temps de télécharger les images et d'installer les dépendances.
-
-## Utilisation
-
-1.  Ouvrez votre navigateur et allez sur `http://localhost:8081`.
-2.  Créez un compte administrateur lors de la première visite.
-3.  Dans l'interface, sélectionnez le pipeline **"RAG API Caller Pipeline"**.
-4.  Commencez à poser des questions sur votre document !
-
-# Projet RAG avec Open WebUI et Serveur Dédié
-
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![LangChain](https://img.shields.io/badge/LangChain-b546f2?style=for-the-badge)
-![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
-
-Ce projet met en place une solution de **R**etrieval-**A**ugmented **G**eneration (RAG) utilisant Open WebUI comme interface et un serveur Python dédié pour la logique RAG. Il permet de "discuter" avec un document local en utilisant la puissance des modèles OpenAI.
-
-## Architecture
-
-Le projet est entièrement conteneurisé avec Docker Compose et s'articule autour de 3 services principaux :
-
-```
-[Utilisateur] <--> [Open WebUI] <--> [Pipeline Intermédiaire] <--> [Serveur RAG] <--> [API OpenAI]
+```text
+[Utilisateur]
+     ⬇️
+[🌐 Open WebUI] <==> [🔗 Pipeline] <==> [🧠 Serveur RAG] <==> [🤖 API OpenAI]
 ```
 
-* **`openwebui`**: L'interface web pour interagir avec l'agent.
-* **`pipelines`**: Un service Open WebUI qui agit comme un simple client HTTP. Il reçoit la question de l'utilisateur et la transmet au `rag_server`.
-* **`rag_server`**: Un serveur API (basé sur Flask) qui contient toute la logique RAG. Au démarrage, il charge un document local, le traite avec LangChain et OpenAI, et expose une API pour répondre aux questions.
+- **openwebui** : Interface utilisateur graphique basée sur Open WebUI.  
+- **pipelines** : Service pont qui connecte l’UI avec le serveur RAG.  
+- **rag_server** : Serveur Flask contenant la logique RAG (prétraitement, recherche, communication avec OpenAI).  
 
-# PLUS DE DETAILS ICI
+---
 
-## Prérequis
+## 🛠️ Prérequis
 
-Avant de commencer, assurez-vous d'avoir installé sur votre machine :
-* [Docker](https://www.docker.com/get-started) & Docker Compose
-* [Git](https://git-scm.com/downloads)
-* Un compte OpenAI et une clé API valide.
+Avant de commencer, veuillez installer les éléments suivants :
 
-## Installation
+- [Git](https://git-scm.com/)
+- [Docker & Docker Compose](https://www.docker.com/)
+- Un compte [OpenAI](https://platform.openai.com/) avec une **clé API valide**
 
-1.  **Clonez le dépôt :**
-    ```bash
-    git clone [https://github.com/MaitriseAI/Test1.git](https://github.com/MaitriseAI/Test1.git)
-    cd Test1
-    ```
+---
 
-2.  **Créez votre fichier de configuration :**
-    Copiez le modèle `.env.example` pour créer votre propre fichier `.env`. C'est ce fichier qui contiendra vos secrets.
-    ```bash
-    cp .env.example .env
-    ```
+## 💻 Installation Locale (Windows, macOS, Linux)
 
-3.  **Lancez l'application :**
-    Utilisez Docker Compose pour construire les images et démarrer les conteneurs.
-    ```bash
-    docker compose up --build -d
-    ```
-    Le premier lancement peut prendre plusieurs minutes, le temps de télécharger les images de base et d'installer toutes les dépendances Python.
+### 1. Cloner le dépôt
 
-## Configuration
+```bash
+git clone https://github.com/MaitriseAI/-RDUE-r.git
+cd -RDUE-r
+```
 
-Pour que l'application fonctionne, deux configurations sont nécessaires après l'installation.
+### 2. Configurer les variables d’environnement
 
-#### 1. Configuration de la Clé API
+```bash
+cp .env.example .env
+```
 
-* Ouvrez le fichier `.env` que vous venez de créer.
-* Remplacez `VOTRE_CLE_API_OPENAI_ICI` par votre véritable clé API OpenAI.
-* Ce fichier est ignoré par Git et restera privé sur votre machine.
+- Ouvrez le fichier `.env` avec un éditeur de texte.
+- Remplacez la valeur de `OPENAI_API_KEY` par votre clé API OpenAI.
 
-#### 2. Configuration du Document Source
+### 3. Ajouter votre document PDF
 
-* Placez le document PDF que vous souhaitez utiliser dans le dossier `rag_server/`.
-* Par défaut, le serveur est configuré pour charger un fichier nommé `mon_document.pdf`.
-* Si votre fichier a un nom différent, ouvrez `rag_server/app.py` et modifiez la ligne suivante :
-    ```python
-    # Ligne à modifier si votre document a un autre nom
-    document_path = "./votre_autre_document.pdf"
-    ```
-* Après avoir modifié la configuration, n'oubliez pas de relancer les services : `docker compose up -d --build`.
+- Placez votre fichier PDF dans le dossier `rag_server/`.
+- Par défaut, le fichier attendu est `votre_document.pdf`.
 
-## Utilisation
+Pour utiliser un autre nom de fichier, modifiez la ligne suivante dans `rag_server/app.py` :
 
-Une fois les conteneurs démarrés, suivez ces étapes pour interagir avec votre RAG.
+```python
+# Ligne 20
+document_path = "./nouveau_nom_de_document.pdf"
+```
 
-#### 1. Accès et Configuration d'Open WebUI
+### 4. Lancer l’application
 
-1.  Ouvrez votre navigateur et allez sur `http://localhost:8081`.
-2.  Lors de votre première visite, Open WebUI vous demandera de créer un compte administrateur. Créez ce compte.
-3.  Une fois connecté, vous arrivez sur l'interface de chat principale.
+```bash
+docker compose up --build -d
+```
 
-#### 2. Sélection du Pipeline RAG
+- `--build` : reconstruit les images à partir du code local.
+- `-d` : démarre les conteneurs en arrière-plan (mode "detached").
 
-Pour que vos questions soient envoyées à votre serveur RAG, vous devez sélectionner le bon pipeline.
+> ℹ️ Le premier lancement peut prendre quelques minutes pour télécharger les images et installer les dépendances.
 
-1.  En haut de l'écran de chat, cliquez sur le menu déroulant qui affiche le modèle (par défaut, il peut afficher "Ollama").
-2.  Dans la liste qui apparaît, cherchez et sélectionnez le pipeline nommé **"RAG API Caller Pipeline"**. Le nom affiché correspond au `title` défini dans le fichier `pipelines/pipeline_rag_api_call.py`.
-3.  Une fois sélectionné, le nom du modèle en haut de l'écran doit indiquer "RAG API Caller Pipeline".
+---
 
-Vous êtes maintenant prêt ! Chaque message que vous enverrez sera traité par votre système RAG complet.
+## 🚀 Utilisation
 
-## Dépannage (Troubleshooting)
+1. Ouvrez votre navigateur à l’adresse : [http://localhost:8081](http://localhost:8081)
+2. Créez un compte utilisateur local si c’est votre première visite.
+3. Cliquez sur **"Select a Model"** en haut de l’interface.
+4. Sélectionnez **"Agent RAG Avancé"**.
+5. Interrogez votre document PDF librement !
 
-* **Erreur : "Impossible de contacter le serveur RAG"**
-    Cela signifie que le conteneur `pipelines` ne peut pas joindre le `rag_server`. La première chose à faire est de vérifier les logs du serveur RAG pour voir s'il a démarré correctement :
-    ```bash
-    docker compose logs rag_server
-    ```
-    Cherchez des messages d'erreur (problème de clé API, document non trouvé, etc.).
+---
 
-* **Mettre à jour après une modification du code**
-    * Si vous modifiez le code du `rag_server` ou ses dépendances, reconstruisez l'image : `docker compose up --build -d`.
-    * Si vous ne modifiez que le code du `pipelines` (qui est dans un volume monté), un simple redémarrage suffit : `docker compose restart pipelines`.
+## ☁️ Déploiement sur un Serveur (ex : Scaleway)
+
+### 1. Préparer l’instance
+
+- Créez une instance (ex. DEV1-S ou DEV1-M) sur [Scaleway](https://www.scaleway.com/) ou tout autre fournisseur cloud.
+- Connectez-vous via SSH à votre serveur distant.
+
+### 2. Installer Git & Docker
+
+```bash
+sudo apt-get update
+sudo apt-get install -y git docker.io docker-compose-v2
+```
+
+### 3. Déployer l’application
+
+```bash
+git clone https://github.com/MaitriseAI/-RDUE-r.git
+cd -RDUE-r
+
+cp .env.example .env
+nano .env  # ou utilisez vim
+
+sudo docker compose up --build -d
+```
+
+### 4. Accéder à l’interface
+
+- Accédez à : `http://<IP_DE_VOTRE_SERVEUR>:8080`
+
+> ⚠️ **Sécurité recommandée** :  
+> Pour un usage en production, utilisez un **reverse proxy** comme **Nginx** ou **Caddy**.  
+> Cela vous permettra de :
+> - Gérer les certificats SSL (HTTPS)
+> - Sécuriser les accès avec authentification
+> - Associer un **nom de domaine personnalisé**
+
+---
+
+## 🧰 Dépannage
+
+### Vérifier les logs du serveur RAG
+
+```bash
+docker compose logs rag_server
+```
+
+### Reprendre après une modification du code Python
+
+```bash
+docker compose up --build -d
+```
+
+---
+
+## 📄 Licence
+
+Ce projet est distribué sous licence **MIT**.  
+Vous êtes libre de l’utiliser, le modifier et le distribuer sous les termes de cette licence.  
+Voir le fichier [`LICENSE`](LICENSE) pour plus d’informations.
+
+---
+
+## 🤝 Contribuer
+
+Les contributions sont les bienvenues !  
+N’hésitez pas à :
+
+- Ouvrir une **issue** pour signaler un bug ou proposer une amélioration.
+- Créer une **pull request** pour soumettre des changements.
+
+---
+
+## 📬 Contact
+
+Pour toute question, suggestion ou retour :
+
+- **📧 Email** : contact@maitrise.ai  
+- **🌐 Site Web** : [www.maitrise.ai](https://www.maitrise.ai)
+
+---
