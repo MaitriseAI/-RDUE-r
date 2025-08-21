@@ -1,14 +1,28 @@
+# Utiliser une image Python 3.11 légère
 FROM python:3.11-slim
 
+# Définir le répertoire de travail
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Mettre à jour pip
+RUN pip install --upgrade pip
 
-# On copie le reste des fichiers (app.py ET mon_document.pdf)
+# Copier le dossier du cache local D'ABORD
+COPY wheelhouse /wheelhouse
+
+# Copier le fichier des dépendances
+COPY requirements.txt .
+
+# Installer les dépendances EN UTILISANT LE CACHE LOCAL
+# --no-index : Empêche pip de chercher les paquets sur internet
+# --find-links=/wheelhouse : Indique à pip de chercher les paquets dans notre dossier local
+RUN pip install --find-links=/wheelhouse -r requirements.txt
+
+# Copier le reste de l'application
 COPY . .
 
-# On expose le port sur lequel Flask va tourner
+# Exposer le port
 EXPOSE 5000
 
+# Lancer le serveur
 CMD ["python", "app.py"]
